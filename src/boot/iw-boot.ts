@@ -8,3 +8,13 @@ declare module 'vue/types/vue' {
         $q: QVueGlobals;
     }
 }
+
+interface ClipboardEvent {
+    getData: any;
+}
+
+declare global {
+    interface Window {
+        clipboardData: ClipboardEvent;
+    }
+}

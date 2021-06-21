@@ -19,6 +19,7 @@
     },
     "devDependencies": {
         "@niama/pug-bem-plain-loader": "^2.25.4",
+        "@prettier/plugin-pug": "^1.15.3",
         "@quasar/app": "^2.0.0",
         "@types/node": "^10.17.15",
         "@typescript-eslint/eslint-plugin": "^3.3.0",
@@ -27,6 +28,7 @@
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.9.0",
         "eslint-loader": "^3.0.3",
+        "eslint-plugin-pug": "^1.2.3",
         "eslint-plugin-vue": "^6.1.2",
         "pug": "^3.0.2"
     },

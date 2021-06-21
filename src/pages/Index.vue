@@ -6,34 +6,30 @@ q-page.iw-page.iw-page-home
         autocomplete="off"
         spellcheck="false"
     )
-        q-editor(v-model='content', ref='editor', v-bind:toolbar='toolbar', @input='keydown'
+        q-editor(v-model='content',
+            ref='editor',
+            :toolbar='toolbar',
+            @keydown='onKeyDown'
 )
-    //- textarea#content(
-    //-     ref='textArea'
-    //-     name="content"
-    //-     cols="30"
-    //-     rows="10"
-    //-     spellcheck="false"
-    //-     placeholder="Start typing Pāli here..."
-    //- )
 </template>
 
 <script lang="ts">
-// import paliTextArea from 'src/utils/pali-text-area';
 import {
     defineComponent,
     onMounted,
     reactive,
     ref,
 } from '@vue/composition-api';
+import { lockKeyboard } from 'src/utils/keyboard';
+import { onKeyDown } from 'src/utils/pali-keyboard';
+import IwQEditor from 'src/utils/quasar/IwQEditor';
 
 export default defineComponent({
     name: 'HomeIndex',
     components: {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     data() {
         return {
-            content: null,
+            content: '',
         };
     },
     setup() {
@@ -67,8 +63,20 @@ export default defineComponent({
                 },
             ],
         ]);
-        console.log(editor);
-        return { toolbar };
+
+        onMounted(async function() {
+            await lockKeyboard();
+        });
+        return { toolbar, editor };
+    },
+    methods: {
+        pasteCapture: function(ev: Event) {
+            IwQEditor.pasteCapture(this.editor, ev);
+        },
+        onKeyDown: function(event: KeyboardEvent) {
+            const res = onKeyDown(event);
+            if (res) this.editor.runCmd('insertText', res);
+        },
     },
 });
 </script>

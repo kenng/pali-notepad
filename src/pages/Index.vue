@@ -1,49 +1,74 @@
-<template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+<template lang="pug">
+q-page.iw-page.iw-page-home
+    form(
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="off"
+        spellcheck="false"
+    )
+        q-editor(v-model='content', ref='editor', v-bind:toolbar='toolbar', @input='keydown'
+)
+    //- textarea#content(
+    //-     ref='textArea'
+    //-     name="content"
+    //-     cols="30"
+    //-     rows="10"
+    //-     spellcheck="false"
+    //-     placeholder="Start typing Pāli here..."
+    //- )
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/CompositionComponent.vue';
-import { defineComponent, ref } from '@vue/composition-api';
+// import paliTextArea from 'src/utils/pali-text-area';
+import {
+    defineComponent,
+    onMounted,
+    reactive,
+    ref,
+} from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'PageIndex',
-  components: { ExampleComponent },
-  setup() {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
-  }
+    name: 'HomeIndex',
+    components: {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    data() {
+        return {
+            content: null,
+        };
+    },
+    setup() {
+        const editor = ref();
+        const toolbar = reactive([
+            ['left', 'center', 'right', 'justify'],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['undo', 'redo', 'fullscreen'],
+            [
+                {
+                    label: 'Formatting',
+                    icon: 'text_format',
+                    list: 'no-icons',
+                    options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'code'],
+                },
+                {
+                    label: 'Size',
+                    icon: 'format_size',
+                    fixedLabel: true,
+                    fixedIcon: true,
+                    list: 'no-icons',
+                    options: [
+                        'size-1',
+                        'size-2',
+                        'size-3',
+                        'size-4',
+                        'size-5',
+                        'size-6',
+                        'size-7',
+                    ],
+                },
+            ],
+        ]);
+        console.log(editor);
+        return { toolbar };
+    },
 });
 </script>

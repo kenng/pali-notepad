@@ -8,6 +8,7 @@
         q-fab(
             v-model='fab.isToggled',
             color='amber',
+            :ref='fab.label'
             text-color='black',
             icon='keyboard_arrow_left',
             direction='left'
@@ -18,7 +19,7 @@
                 v-for='letter of fab.items'
                 color='amber',
                 text-color='black',
-                @click='() => $emit("click", letter)',
+                @click='() => onFabActionClicked(fab, letter)',
                 :label='letter',
             )
 
@@ -62,7 +63,11 @@ export default defineComponent({
     created: function() {},
     mounted: function() {},
     methods: {
-        onClick: function(value) {},
+        onFabActionClicked: function(fab: any, letter: string) {
+            this.$emit('click', letter);
+            const theFab: any = this.$refs[fab.label];
+            theFab[0].show();
+        },
     },
 });
 </script>

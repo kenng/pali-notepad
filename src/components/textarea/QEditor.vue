@@ -11,6 +11,20 @@ q-page.iw-page.iw-page-home
             :toolbar='toolbar',
             @input='onChanged'
             @keydown='onKeyDown'
+            :definitions=`{
+                'selectAll': {
+                    'tip': "Select all text",
+                    'icon': "select_all",
+                    'label': "Select All",
+                    'handler': selectAll,
+                },
+                'copy': {
+                    'tip': "Copy selected text",
+                    'icon': "content_copy",
+                    'label': "Copy",
+                    'handler': copyToClipboard,
+                }
+            }`
         )
 
     FloatingAction(@click='onFabClick')
@@ -44,7 +58,7 @@ export default defineComponent({
         const editor = ref();
         const toolbar = reactive([
             ['left', 'center', 'right', 'justify'],
-            ['bold', 'italic', 'underline', 'strike'],
+            ['bold', 'italic', 'underline', 'strike', 'removeFormat'],
             ['undo', 'redo', 'fullscreen'],
             [
                 {
@@ -70,6 +84,8 @@ export default defineComponent({
                     ],
                 },
             ],
+            ['selectAll', 'copy'],
+            ['viewsource'],
         ]);
 
         onMounted(async function() {
@@ -89,6 +105,18 @@ export default defineComponent({
         onFabClick: function(letter: string) {
             if (letter) this.editor.runCmd('insertText', letter);
         },
+        selectAll: function() {
+            this.editor.runCmd('selectAll');
+        },
+        copyToClipboard: function() {
+            this.editor.runCmd('copy');
+        },
     },
 });
 </script>
+
+<style>
+.q-editor__content {
+    resize: both;
+}
+</style>

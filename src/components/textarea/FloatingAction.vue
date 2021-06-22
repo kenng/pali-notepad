@@ -17,6 +17,7 @@
             )
             q-fab-action(
                 v-for='letter of fab.items'
+                :key='letter'
                 color='amber',
                 text-color='black',
                 @click='() => onFabActionClicked(fab, letter)',

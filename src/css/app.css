@@ -1,28 +1,4 @@
 /* app global css */
-body {
-    font-size: 16px;
-}
-
-.iw-page {
-    min-height: 100vh;
-}
-
-.iw-page-bottom {
-    margin-bottom: 20vh;
-}
-
-.iw-size-125 {
-    font-size: 1.25em;
-}
-
-.iw-size-150 {
-    font-size: 1.5em;
-}
-
-.iw-size-200 {
-    font-size: 2em;
-}
-
 kbd {
     border: 1px solid #aaa;
     border-radius: 0.2em;

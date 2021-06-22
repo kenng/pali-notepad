@@ -134,12 +134,4 @@ export default defineComponent({
 #iw-qeditor .q-editor__content {
     resize: both;
 }
-
-#iw-qeditor .q-fab__actions {
-    overflow-y: auto;
-    width: 100vw;
-    padding-right: 22px;
-    flex-direction: row;
-    background: #e2e2e25e;
-}
 </style>

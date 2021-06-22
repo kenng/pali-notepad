@@ -1,5 +1,5 @@
 <template lang="pug">
-q-page.iw-page.iw-page-home
+q-page#iw-qeditor.iw-page.iw-page-bottom
     form(
         autocorrect="off"
         autocapitalize="off"
@@ -42,6 +42,7 @@ import { lockKeyboard } from 'src/utils/keyboard';
 import { onKeyDown } from 'src/utils/pali-keyboard';
 import IwQEditor from 'src/utils/quasar/IwQEditor';
 import FloatingAction from 'src/components/textarea/FloatingAction.vue';
+import { LocalStorage, debounce } from 'quasar';
 
 export default defineComponent({
     name: 'HomeIndex',
@@ -52,6 +53,7 @@ export default defineComponent({
         return {
             content: '',
             isEnabledPaliParsing: true,
+            storageKey: 'paliContent',
         };
     },
     setup() {
@@ -88,22 +90,31 @@ export default defineComponent({
             ['viewsource'],
         ]);
 
-        onMounted(async function() {
-            await lockKeyboard();
-        });
         return { toolbar, editor };
+    },
+    mounted: async function() {
+        await lockKeyboard();
+        const storedContent = LocalStorage.getItem(this.storageKey);
+        if (typeof storedContent === 'string') this.content = storedContent;
     },
     methods: {
         pasteCapture: function(ev: Event) {
             IwQEditor.pasteCapture(this.editor, ev);
         },
-        onChanged: function(value: string) {},
+        onChanged: function(value: string) {
+            debounce(() => this.saveToStorage(value), 5000)();
+        },
+        saveToStorage: function(value: string) {
+            LocalStorage.set(this.storageKey, value);
+        },
         onKeyDown: function(event: KeyboardEvent) {
             const res = onKeyDown(event);
             if (res) this.editor.runCmd('insertText', res);
         },
         onFabClick: function(letter: string) {
-            if (letter) this.editor.runCmd('insertText', letter);
+            if (letter) {
+                this.editor.runCmd('insertText', letter);
+            }
         },
         selectAll: function() {
             this.editor.runCmd('selectAll');
@@ -116,7 +127,19 @@ export default defineComponent({
 </script>
 
 <style>
-.q-editor__content {
+#iw-qeditor {
+    margin-bottom: 30vh;
+}
+
+#iw-qeditor .q-editor__content {
     resize: both;
+}
+
+#iw-qeditor .q-fab__actions {
+    overflow-y: auto;
+    width: 100vw;
+    padding-right: 22px;
+    flex-direction: row;
+    background: #e2e2e25e;
 }
 </style>

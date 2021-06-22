@@ -1,1 +1,8 @@
 /* app global css */
+.iw-page {
+    min-height: 100vh;
+}
+
+.iw-page-bottom {
+    margin-bottom: 20vh;
+}

@@ -97,7 +97,6 @@ module.exports = configure(function(ctx) {
             config: {
                 brand: {
                     primary: '#fdc830',
-                    primary: '#fdc830',
                 },
             },
 
@@ -131,40 +130,36 @@ module.exports = configure(function(ctx) {
             workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
             workboxOptions: {}, // only for GenerateSW
             manifest: {
-                name: 'Quasar App',
-                short_name: 'Quasar App',
-                description: 'A Quasar Framework app',
+                name: 'Pali Easy Input',
+                short_name: 'Pali Input',
+                description: 'Pali Input Made Easy',
                 display: 'standalone',
                 orientation: 'portrait',
                 background_color: '#ffffff',
                 theme_color: '#027be3',
                 icons: [
                     {
-                        src: 'icons/icon-128x128.png',
-                        sizes: '128x128',
-                        type: 'image/png',
-                    },
-                    {
-                        src: 'icons/icon-192x192.png',
+                        src: 'icons/favicon-192x192.png',
                         sizes: '192x192',
                         type: 'image/png',
                     },
                     {
-                        src: 'icons/icon-256x256.png',
-                        sizes: '256x256',
-                        type: 'image/png',
-                    },
-                    {
-                        src: 'icons/icon-384x384.png',
-                        sizes: '384x384',
-                        type: 'image/png',
-                    },
-                    {
-                        src: 'icons/icon-512x512.png',
+                        src: 'icons/favicon-512x512.png',
                         sizes: '512x512',
                         type: 'image/png',
                     },
                 ],
+            },
+            metaVariables: {
+                appleMobileWebAppCapable: 'yes',
+                appleMobileWebAppStatusBarStyle: 'default',
+                appleTouchIcon120: 'icons/apple-touch-icon.png',
+                appleTouchIcon180: 'icons/apple-touch-icon.png',
+                appleTouchIcon152: 'icons/apple-touch-icon.png',
+                appleTouchIcon167: 'icons/apple-touch-icon.png',
+                appleSafariPinnedTab: 'icons/safari-pinned-tab.svg',
+                msapplicationTileImage: 'icons/ms-icon-150x150.png',
+                msapplicationTileColor: '#ffffff',
             },
         },
 

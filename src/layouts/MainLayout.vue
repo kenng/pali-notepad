@@ -19,7 +19,12 @@
             </q-toolbar>
         </q-header>
 
-        <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1">
+        <!-- <q-drawer
+            v-model="leftDrawerOpen"
+            bordered
+            content-class="bg-grey-1"
+            draggable="false"
+        >
             <q-list>
                 <q-item-label header class="text-grey-8">
                     Essential Links
@@ -30,7 +35,7 @@
                     v-bind="link"
                 />
             </q-list>
-        </q-drawer>
+        </q-drawer> -->
 
         <q-page-container>
             <router-view />

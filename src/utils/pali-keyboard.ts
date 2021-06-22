@@ -1,16 +1,13 @@
-const letters = [
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
-    ['ā', 'ḍ', 'ī', 'ḷ', 'ṁ', 'ṃ', 'ñ', 'ṇ', 'ṭ', 'ū', 'ŋ', 'ṅ'],
-];
+// const letters = [
+//     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+//     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+//     ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+//     ['ā', 'ḍ', 'ī', 'ḷ', 'ṁ', 'ṃ', 'ñ', 'ṇ', 'ṭ', 'ū', 'ŋ', 'ṅ'],
+// ];
 
 // diacritics
 // "Alt Ctrl N" for "n tilde"
-interface obj {
-    [letter: string]: string;
-}
-const tilde: obj = {
+export const tilde: obj = {
     a: 'ā',
     A: 'Ā',
     i: 'ī',
@@ -22,10 +19,10 @@ const tilde: obj = {
 };
 
 // "Alt N" for "n overdot",
-const overdot: obj = { m: 'ṁ', M: '', n: 'ṅ', N: 'Ṅ' };
+export const overdot: obj = { n: 'ṅ', N: 'Ṅ' };
 
 // "Ctrl N" for "n underdot", etc.
-const underdot: obj = {
+export const underdot: obj = {
     d: 'ḍ',
     D: 'Ḍ',
     l: 'ḷ',
@@ -38,7 +35,6 @@ const underdot: obj = {
     t: 'ṭ',
     T: 'Ṭ',
 };
-const special = { n: 'ŋ' };
 
 export function onKeyDown(event: KeyboardEvent) {
     if (event.altKey && event.key != 'Alt') {

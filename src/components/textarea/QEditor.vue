@@ -11,6 +11,7 @@ q-page#iw-qeditor.iw-page.iw-page-bottom
             :toolbar='toolbar',
             @input='onChanged'
             @keydown='onKeyDown'
+            min-height='90vh',
             :definitions=`{
                 'selectAll': {
                     'tip': "Select all text",
@@ -80,8 +81,9 @@ export default defineComponent({
                         'size-7',
                     ],
                 },
+                'selectAll',
+                'copy',
             ],
-            ['selectAll', 'copy'],
             ['viewsource'],
         ]);
 
@@ -91,6 +93,7 @@ export default defineComponent({
         await lockKeyboard();
         const storedContent = LocalStorage.getItem(this.storageKey);
         if (typeof storedContent === 'string') this.content = storedContent;
+        this.editor.focus();
     },
     methods: {
         // pasteCapture: function(ev: Event) {

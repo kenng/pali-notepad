@@ -13,7 +13,7 @@
                 color='amber',
                 :ref='fab.label'
                 text-color='black',
-                icon='keyboard_arrow_left',
+                :icon='keyboard_arrow_left',
                 direction='left'
                 :persistent='true'
                 :label='fab.label'
@@ -44,6 +44,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import { tilde, overdot, underdot } from 'src/utils/pali-keyboard';
+import { mdiChevronLeft } from '@quasar/extras/mdi-v5';
 
 export default defineComponent({
     name: 'FloatingAction',
@@ -52,6 +53,7 @@ export default defineComponent({
     props: {},
     data: function() {
         return {
+            keyboard_arrow_left: mdiChevronLeft,
             fabs: {
                 overdot: {
                     isToggled: true,

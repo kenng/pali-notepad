@@ -16,7 +16,7 @@
                 </q-toolbar-title>
 
                 <div>
-                    <q-btn flat icon="help_center" @click="onHelpClicked">
+                    <q-btn flat :icon="help_center" @click="onHelpClicked">
                     </q-btn>
                 </div>
                 <div>v1.0.0</div>
@@ -61,10 +61,16 @@ const linksData = [
 
 import { defineComponent, ref } from '@vue/composition-api';
 import TutorialDialog from 'src/components/TutorialDialog.vue';
+import { mdiHelpCircle } from '@quasar/extras/mdi-v5';
 
 export default defineComponent({
     name: 'MainLayout',
     components: { EssentialLink },
+    data: function() {
+        return {
+            help_center: mdiHelpCircle,
+        };
+    },
     setup() {
         const leftDrawerOpen = ref(false);
         const essentialLinks = ref(linksData);

@@ -2,8 +2,10 @@
 .iw-footer.text-center
     hr.iw-opacity-2
     span made with&nbsp;
-    q-icon(
-        name='favorite'
+    q-btn(
+        flat
+        dense
+        :icon='mdiHeart'
     )
     //- span &nbsp;by&nbsp;
     //- a.q-link(
@@ -32,6 +34,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import { mdiHeart } from '@quasar/extras/mdi-v5';
 
 export default defineComponent({
     name: '',
@@ -44,7 +47,9 @@ export default defineComponent({
         },
     },
     data: function() {
-        return {};
+        return {
+            mdiHeart,
+        };
     },
     watch: {},
     computed: {},

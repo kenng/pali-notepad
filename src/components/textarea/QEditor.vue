@@ -15,13 +15,13 @@ q-page#iw-qeditor.iw-page.iw-page-bottom
             :definitions=`{
                 'selectAll': {
                     'tip': "Select all text",
-                    'icon': "select_all",
+                    'icon': mdiSelectAll,
                     'label': "Select All",
                     'handler': selectAll,
                 },
                 'copy': {
                     'tip': "Copy selected text",
-                    'icon': "content_copy",
+                    'icon': mdiContentCopy,
                     'label': "Copy",
                     'handler': copyToClipboard,
                 }
@@ -33,12 +33,13 @@ q-page#iw-qeditor.iw-page.iw-page-bottom
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@vue/composition-api';
+import { defineComponent, ref } from '@vue/composition-api';
 import { lockKeyboard } from 'src/utils/keyboard';
 import { onKeyDown } from 'src/utils/pali-keyboard';
 // import IwQEditor from 'src/utils/quasar/IwQEditor';
 import FloatingAction from 'src/components/textarea/FloatingAction.vue';
 import { LocalStorage, debounce } from 'quasar';
+import { mdiContentCopy, mdiSelectAll } from '@quasar/extras/mdi-v5';
 
 export default defineComponent({
     name: 'HomeIndex',
@@ -48,49 +49,62 @@ export default defineComponent({
     data() {
         return {
             content: '',
+            toolbar: null as any,
             isEnabledPaliParsing: true,
             storageKey: 'paliContent',
+            mdiContentCopy: mdiContentCopy,
+            mdiSelectAll: mdiSelectAll,
         };
     },
     setup() {
         const editor = ref();
-        const toolbar = reactive([
-            ['left', 'center', 'right', 'justify'],
-            ['bold', 'italic', 'underline', 'strike', 'removeFormat'],
-            ['undo', 'redo', 'fullscreen'],
-            [
-                {
-                    label: 'Formatting',
-                    icon: 'text_format',
-                    list: 'no-icons',
-                    options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'code'],
-                },
-                {
-                    label: 'Size',
-                    icon: 'format_size',
-                    fixedLabel: true,
-                    fixedIcon: true,
-                    list: 'no-icons',
-                    options: [
-                        'size-1',
-                        'size-2',
-                        'size-3',
-                        'size-4',
-                        'size-5',
-                        'size-6',
-                        'size-7',
-                    ],
-                },
-                'selectAll',
-                'copy',
-            ],
-            ['viewsource'],
-        ]);
-
-        return { toolbar, editor };
+        return { editor };
     },
     mounted: async function() {
         await lockKeyboard();
+        this.toolbar = Object.assign(
+            [],
+            [
+                ['left', 'center', 'right', 'justify'],
+                ['bold', 'italic', 'underline', 'strike', 'removeFormat'],
+                ['undo', 'redo', 'fullscreen', 'viewsource'],
+                [
+                    {
+                        label: this.$q.lang.editor.formatting,
+                        icon: this.$q.iconSet.editor.formatting,
+                        list: 'no-icons',
+                        options: [
+                            'h1',
+                            'h2',
+                            'h3',
+                            'h4',
+                            'h5',
+                            'h6',
+                            'p',
+                            'code',
+                        ],
+                    },
+                    {
+                        label: this.$q.lang.editor.fontSize,
+                        icon: this.$q.iconSet.editor.fontSize,
+                        fixedLabel: true,
+                        fixedIcon: true,
+                        list: 'no-icons',
+                        options: [
+                            'size-1',
+                            'size-2',
+                            'size-3',
+                            'size-4',
+                            'size-5',
+                            'size-6',
+                            'size-7',
+                        ],
+                    },
+                    'selectAll',
+                    'copy',
+                ],
+            ],
+        );
         const storedContent = LocalStorage.getItem(this.storageKey);
         if (typeof storedContent === 'string') this.content = storedContent;
         this.editor.focus();

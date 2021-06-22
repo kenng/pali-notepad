@@ -8,7 +8,11 @@ q-dialog.iw-dialog-tutorial(ref="dialog", @hide="onDialogHide", width='80vw')
         q-card-section
             .text-h6 Keyboard Shortcut
             .text-subtitle NOTE: some shortcut key only work in full screen mode
-                q-icon.iw-size-200.cursor-pointer(name='fullscreen', @click='toggleFullscreen')
+                q-btn.cursor-pointer(
+                    flat,
+                    dense
+                    :icon='mdiFullscreen',
+                    @click='toggleFullscreen')
                 span , for example &nbsp;
                 kbd Ctrl
                 span +
@@ -64,6 +68,7 @@ q-dialog.iw-dialog-tutorial(ref="dialog", @hide="onDialogHide", width='80vw')
 
 <script>
 import toggleFullscreen from 'src/utils/fullscreen';
+import { mdiFullscreen } from '@quasar/extras/mdi-v5';
 
 export default {
     props: {
@@ -75,7 +80,9 @@ export default {
         'ok',
         'hide',
     ],
-
+    created: function() {
+        this.mdiFullscreen = mdiFullscreen;
+    },
     methods: {
         toggleFullscreen: async function() {
             await toggleFullscreen();

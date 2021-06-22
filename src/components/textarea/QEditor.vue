@@ -32,15 +32,10 @@ q-page#iw-qeditor.iw-page.iw-page-bottom
 </template>
 
 <script lang="ts">
-import {
-    defineComponent,
-    onMounted,
-    reactive,
-    ref,
-} from '@vue/composition-api';
+import { defineComponent, reactive, ref } from '@vue/composition-api';
 import { lockKeyboard } from 'src/utils/keyboard';
 import { onKeyDown } from 'src/utils/pali-keyboard';
-import IwQEditor from 'src/utils/quasar/IwQEditor';
+// import IwQEditor from 'src/utils/quasar/IwQEditor';
 import FloatingAction from 'src/components/textarea/FloatingAction.vue';
 import { LocalStorage, debounce } from 'quasar';
 

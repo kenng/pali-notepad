@@ -7,6 +7,7 @@
     "private": false,
     "scripts": {
         "lint": "eslint --ext .js,.ts,.vue ./",
+        "buildpwa": "quasar build -m pwa && [ -d '../pali-easy-input-dist/' ] && rm -rf ../pali-easy-input-dist/* && mv dist/pwa/* ../pali-easy-input-dist",
         "test": "echo \"No test specified\" && exit 0"
     },
     "dependencies": {

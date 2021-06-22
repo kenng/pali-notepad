@@ -82,7 +82,7 @@ export default defineComponent({
         onFabActionClicked: function(fab: any, letter: string) {
             this.$emit('click', letter);
             const theFab: any = this.$refs[fab.label];
-            theFab[0].show();
+            theFab.show();
         },
     },
 });
@@ -91,6 +91,7 @@ export default defineComponent({
 <style>
 #iw-com-fab {
     position: relative;
+    z-index: 999;
 }
 
 #iw-com-fab .q-fab__actions {
@@ -126,7 +127,6 @@ export default defineComponent({
         padding-right: 22px;
         overflow-y: hidden;
         overflow-x: scroll;
-        /* justify-content: flex-end; */
     }
 }
 </style>

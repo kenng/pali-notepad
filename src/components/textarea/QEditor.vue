@@ -98,9 +98,9 @@ export default defineComponent({
         if (typeof storedContent === 'string') this.content = storedContent;
     },
     methods: {
-        pasteCapture: function(ev: Event) {
-            IwQEditor.pasteCapture(this.editor, ev);
-        },
+        // pasteCapture: function(ev: Event) {
+        //     IwQEditor.pasteCapture(this.editor, ev);
+        // },
         onChanged: function(value: string) {
             debounce(() => this.saveToStorage(value), 5000)();
         },

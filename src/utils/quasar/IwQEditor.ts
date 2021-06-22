@@ -1,7 +1,6 @@
 // sample from https://quasar.dev/vue-components/editor#example--paste-event-override
 export default class IwQEditor {
     static pasteCapture(refs_editor: any, evt: any) {
-        debugger;
         // Let inputs do their thing, so we don't break pasting of links.
         if (evt.target.nodeName === 'INPUT') return;
         let text, onPasteStripFormattingIEPaste;

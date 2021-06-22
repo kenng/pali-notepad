@@ -77,8 +77,8 @@ export default {
     ],
 
     methods: {
-        toggleFullscreen: function() {
-            toggleFullscreen();
+        toggleFullscreen: async function() {
+            await toggleFullscreen();
         },
         // following method is REQUIRED
         // (don't change its name --> "show")
@@ -121,5 +121,11 @@ export default {
 .iw-dialog-tutorial .q-dialog-plugin.q-card {
     width: 60vw;
     max-width: 100vw;
+}
+
+@media screen and (max-width: 599px) {
+    .iw-dialog-tutorial .q-dialog-plugin.q-card {
+        width: 90vw;
+    }
 }
 </style>

@@ -15,6 +15,10 @@
                     Pali Easy Input
                 </q-toolbar-title>
 
+                <div>
+                    <q-btn flat icon="help_center" @click="onHelpClicked">
+                    </q-btn>
+                </div>
                 <div>v1.0.0</div>
             </q-toolbar>
         </q-header>
@@ -56,6 +60,7 @@ const linksData = [
 ];
 
 import { defineComponent, ref } from '@vue/composition-api';
+import TutorialDialog from 'src/components/TutorialDialog.vue';
 
 export default defineComponent({
     name: 'MainLayout',
@@ -65,6 +70,15 @@ export default defineComponent({
         const essentialLinks = ref(linksData);
 
         return { leftDrawerOpen, essentialLinks };
+    },
+    methods: {
+        onHelpClicked: function() {
+            this.$q
+                .dialog({
+                    component: TutorialDialog,
+                })
+                .onOk(() => {});
+        },
     },
 });
 </script>

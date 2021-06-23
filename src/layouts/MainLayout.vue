@@ -19,7 +19,7 @@
                     <q-btn flat :icon="help_center" @click="onHelpClicked">
                     </q-btn>
                 </div>
-                <div>v1.0.1</div>
+                <div>v1.0.2</div>
             </q-toolbar>
         </q-header>
 

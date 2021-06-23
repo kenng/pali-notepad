@@ -19,7 +19,7 @@ export const tilde: obj = {
 };
 
 // "Alt N" for "n overdot",
-export const overdot: obj = { n: 'ṅ', N: 'Ṅ' };
+export const overdot: obj = { m: 'ṁ', n: 'ṅ', N: 'Ṅ' };
 
 // "Ctrl N" for "n underdot", etc.
 export const underdot: obj = {

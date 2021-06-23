@@ -128,10 +128,13 @@ module.exports = configure(function(ctx) {
         // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
         pwa: {
             workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-            workboxOptions: {}, // only for GenerateSW
+            workboxOptions: {
+                skipWaiting: true,
+                clientsClaim: true,
+            }, // only for GenerateSW
             manifest: {
                 name: 'Pali Notepad',
-                short_name: 'Pali Input',
+                short_name: 'Pali Notepad',
                 description: 'Pali Input Made Easy',
                 display: 'standalone',
                 orientation: 'portrait',

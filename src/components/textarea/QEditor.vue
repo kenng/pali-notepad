@@ -52,13 +52,11 @@ export default defineComponent({
             toolbar: null as any,
             isEnabledPaliParsing: true,
             storageKey: 'paliContent',
-            mdiContentCopy: mdiContentCopy,
-            mdiSelectAll: mdiSelectAll,
         };
     },
     setup() {
         const editor = ref();
-        return { editor };
+        return { editor, mdiContentCopy, mdiSelectAll };
     },
     mounted: async function() {
         await lockKeyboard();

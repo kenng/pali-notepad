@@ -53,7 +53,6 @@ export default defineComponent({
     props: {},
     data: function() {
         return {
-            keyboard_arrow_left: mdiChevronLeft,
             fabs: {
                 overdot: {
                     isToggled: true,
@@ -80,11 +79,18 @@ export default defineComponent({
     computed: {},
     created: function() {},
     mounted: function() {},
+    setup: function() {
+        return { keyboard_arrow_left: mdiChevronLeft };
+    },
     methods: {
         onFabActionClicked: function(fab: any, letter: string) {
             this.$emit('click', letter);
             const theFab: any = this.$refs[fab.label];
-            theFab.show();
+            if (Array.isArray(theFab)) {
+                theFab[0].show();
+            } else {
+                theFab.show();
+            }
         },
     },
 });

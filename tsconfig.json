@@ -1,10 +1,15 @@
 {
-  "extends": "@quasar/app/tsconfig-preset",
-  "noImplicitThis": false,
-  "noImplicitAny": false,
-  "compilerOptions": {
-    "typeRoots": ["./types-declare"],
-
-    "baseUrl": "."
-  }
+    "extends": "@quasar/app/tsconfig-preset",
+    "noImplicitThis": false,
+    "noImplicitAny": false,
+    "include": [
+        "./src/**/*.ts",
+        "./src/**/*.vue",
+        "./src-pwa/*.js",
+        "./typings/*.d.ts"
+    ],
+    "exclude": ["node_modules", "**/*.spec.ts"],
+    "compilerOptions": {
+        "baseUrl": "."
+    }
 }

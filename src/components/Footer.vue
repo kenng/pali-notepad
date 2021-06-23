@@ -46,13 +46,11 @@ export default defineComponent({
             required: true,
         },
     },
-    data: function() {
-        return {
-            mdiHeart,
-        };
-    },
     watch: {},
     computed: {},
+    setup: function() {
+        return { mdiHeart };
+    },
     created: function() {},
     mounted: function() {},
     methods: {},

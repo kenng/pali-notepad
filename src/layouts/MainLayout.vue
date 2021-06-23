@@ -19,7 +19,7 @@
                     <q-btn flat :icon="help_center" @click="onHelpClicked">
                     </q-btn>
                 </div>
-                <div>v1.0.0</div>
+                <div>v1.0.1</div>
             </q-toolbar>
         </q-header>
 
@@ -66,16 +66,11 @@ import { mdiHelpCircle } from '@quasar/extras/mdi-v5';
 export default defineComponent({
     name: 'MainLayout',
     components: { EssentialLink },
-    data: function() {
-        return {
-            help_center: mdiHelpCircle,
-        };
-    },
     setup() {
         const leftDrawerOpen = ref(false);
         const essentialLinks = ref(linksData);
 
-        return { leftDrawerOpen, essentialLinks };
+        return { leftDrawerOpen, essentialLinks, help_center: mdiHelpCircle };
     },
     methods: {
         onHelpClicked: function() {

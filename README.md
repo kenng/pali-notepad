@@ -11,7 +11,7 @@ This app has following features
 
 ## Demo Site
 
-[Pali-Easy-Input](https://kenng.github.io/pali-easy-input)
+[Pali Notepad Live](https://kenng.github.io/pali-notepad)
 
 ## Keyboard Shortcut for Diacritics
 

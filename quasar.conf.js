@@ -130,7 +130,7 @@ module.exports = configure(function(ctx) {
             workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
             workboxOptions: {}, // only for GenerateSW
             manifest: {
-                name: 'Pali Easy Input',
+                name: 'Pali Notepad',
                 short_name: 'Pali Input',
                 description: 'Pali Input Made Easy',
                 display: 'standalone',

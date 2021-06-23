@@ -2,7 +2,7 @@
 .iw-page
     TextArea
 
-    Footer(repo='https://github.com/kenng/pali-easy-input')
+    Footer(repo='https://github.com/kenng/pali-notepad')
 </template>
 
 <script lang="ts">

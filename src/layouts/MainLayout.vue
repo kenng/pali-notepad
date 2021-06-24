@@ -19,7 +19,7 @@
                     <q-btn flat :icon="help_center" @click="onHelpClicked">
                     </q-btn>
                 </div>
-                <div>v1.0.2</div>
+                <div>{{ version }}</div>
             </q-toolbar>
         </q-header>
 
@@ -70,7 +70,12 @@ export default defineComponent({
         const leftDrawerOpen = ref(false);
         const essentialLinks = ref(linksData);
 
-        return { leftDrawerOpen, essentialLinks, help_center: mdiHelpCircle };
+        return {
+            leftDrawerOpen,
+            essentialLinks,
+            help_center: mdiHelpCircle,
+            version: process.env.version,
+        };
     },
     methods: {
         onHelpClicked: function() {

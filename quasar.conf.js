@@ -62,6 +62,9 @@ module.exports = configure(function(ctx) {
 
             // Options below are automatically set depending on the env, set them if you want to override
             // extractCSS: false,
+            env: {
+                version: 'v1.0.4',
+            },
 
             // https://quasar.dev/quasar-cli/handling-webpack
             extendWebpack(cfg) {
@@ -96,7 +99,7 @@ module.exports = configure(function(ctx) {
             lang: 'en-us', // Quasar language pack
             config: {
                 brand: {
-                    primary: '#fdc830',
+                    primary: '#ea7a2a',
                 },
             },
 
@@ -139,7 +142,7 @@ module.exports = configure(function(ctx) {
                 display: 'standalone',
                 orientation: 'portrait',
                 background_color: '#ffffff',
-                theme_color: '#027be3',
+                theme_color: '#ea7a2a',
                 icons: [
                     {
                         src: 'icons/favicon-192x192.png',

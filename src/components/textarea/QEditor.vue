@@ -8,6 +8,7 @@ q-page#iw-qeditor.iw-page.iw-page-bottom
     )
         q-editor(v-model='content',
             ref='editor',
+            :readonly='isReadonly'
             :toolbar='toolbar',
             @input='onChanged'
             @keydown='onKeyDown'
@@ -24,7 +25,19 @@ q-page#iw-qeditor.iw-page.iw-page-bottom
                     'icon': mdiContentCopy,
                     'label': "Copy",
                     'handler': copyToClipboard,
-                }
+                },
+                'readonly': {
+                    'tip': "Toggle readonly mode",
+                    'icon': mdiPencilOff,
+                    'label': "Readonly",
+                    'handler': toggleReadonly,
+                },
+                'editMode': {
+                    'tip': "Switch back to Edit Mode",
+                    'icon': mdiPencil,
+                    'label': "Back to Edit Mode",
+                    'handler': toggleReadonly,
+                },
             }`
         )
 
@@ -39,7 +52,12 @@ import { onKeyDown } from 'src/utils/pali-keyboard';
 // import IwQEditor from 'src/utils/quasar/IwQEditor';
 import FloatingAction from 'src/components/textarea/FloatingAction.vue';
 import { LocalStorage, debounce } from 'quasar';
-import { mdiContentCopy, mdiSelectAll } from '@quasar/extras/mdi-v5';
+import {
+    mdiContentCopy,
+    mdiSelectAll,
+    mdiPencilOff,
+    mdiPencil,
+} from '@quasar/extras/mdi-v5';
 
 export default defineComponent({
     name: 'HomeIndex',
@@ -52,17 +70,61 @@ export default defineComponent({
             toolbar: null as any,
             isEnabledPaliParsing: true,
             storageKey: 'paliContent',
+            isReadonly: false,
+            defaultToolbar: [] as any,
         };
     },
     setup() {
         const editor = ref();
-        return { editor, mdiContentCopy, mdiSelectAll };
+        return {
+            editor,
+            mdiContentCopy,
+            mdiSelectAll,
+            mdiPencilOff,
+            mdiPencil,
+        };
     },
     mounted: async function() {
         await lockKeyboard();
-        this.toolbar = Object.assign(
-            [],
-            [
+        this.init();
+        this.toolbar = this.defaultToolbar;
+        const storedContent = LocalStorage.getItem(this.storageKey);
+        if (typeof storedContent === 'string') this.content = storedContent;
+        this.editor.focus();
+    },
+    methods: {
+        // pasteCapture: function(ev: Event) {
+        //     IwQEditor.pasteCapture(this.editor, ev);
+        // },
+        onChanged: function(value: string) {
+            debounce(() => this.saveToStorage(value), 5000)();
+        },
+        saveToStorage: function(value: string) {
+            LocalStorage.set(this.storageKey, value);
+        },
+        onKeyDown: function(event: KeyboardEvent) {
+            const res = onKeyDown(event);
+            if (res) this.editor.runCmd('insertText', res);
+        },
+        onFabClick: function(letter: string) {
+            if (letter) {
+                this.editor.runCmd('insertText', letter);
+            }
+        },
+        selectAll: function() {
+            this.editor.runCmd('selectAll');
+        },
+        copyToClipboard: function() {
+            this.editor.runCmd('copy');
+        },
+        toggleReadonly: function() {
+            this.isReadonly = !this.isReadonly;
+            this.toolbar = this.isReadonly
+                ? Object.assign([], [['editMode']])
+                : Object.assign([], this.defaultToolbar);
+        },
+        init: function() {
+            this.defaultToolbar = [
                 ['left', 'center', 'right', 'justify'],
                 ['bold', 'italic', 'underline', 'strike', 'removeFormat'],
                 ['undo', 'redo', 'fullscreen', 'viewsource'],
@@ -100,37 +162,9 @@ export default defineComponent({
                     },
                     'selectAll',
                     'copy',
+                    'readonly',
                 ],
-            ],
-        );
-        const storedContent = LocalStorage.getItem(this.storageKey);
-        if (typeof storedContent === 'string') this.content = storedContent;
-        this.editor.focus();
-    },
-    methods: {
-        // pasteCapture: function(ev: Event) {
-        //     IwQEditor.pasteCapture(this.editor, ev);
-        // },
-        onChanged: function(value: string) {
-            debounce(() => this.saveToStorage(value), 5000)();
-        },
-        saveToStorage: function(value: string) {
-            LocalStorage.set(this.storageKey, value);
-        },
-        onKeyDown: function(event: KeyboardEvent) {
-            const res = onKeyDown(event);
-            if (res) this.editor.runCmd('insertText', res);
-        },
-        onFabClick: function(letter: string) {
-            if (letter) {
-                this.editor.runCmd('insertText', letter);
-            }
-        },
-        selectAll: function() {
-            this.editor.runCmd('selectAll');
-        },
-        copyToClipboard: function() {
-            this.editor.runCmd('copy');
+            ];
         },
     },
 });

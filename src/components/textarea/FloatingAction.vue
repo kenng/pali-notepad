@@ -1,5 +1,6 @@
 <template lang="pug">
 #iw-com-fab
+
     template(
         v-if='$q.screen.gt.sm'
     )
@@ -10,9 +11,9 @@
             :offset="fab.offset")
             q-fab(
                 v-model='fab.isToggled',
-                color='amber',
+                :color='color',
                 :ref='fab.label'
-                text-color='black',
+                :text-color='textColor',
                 :icon='keyboard_arrow_left',
                 direction='left'
                 :persistent='true'
@@ -21,24 +22,34 @@
                 q-fab-action(
                     v-for='letter of fab.items'
                     :key='letter'
-                    color='amber',
-                    text-color='black',
+                    :color='color',
+                    :text-color='textColor',
                     @click='() => onFabActionClicked(fab, letter)',
                     :label='letter',
                 )
     template(v-else)
-        .iw-sticky-bottom.text-center
-            .iw-code-block(v-for='fab of fabs')
+        #iw-mobile-keys.iw-sticky-bottom.text-center
+            .iw-code-block(
+                v-if='showKeys'
+                v-for='fab of fabs'
+                :key='fab.label'
+                )
                 q-fab-action.q-ma-xs(
                     v-for='letter of fab.items'
                     :key='letter'
-                    color='amber',
-                    text-color='black',
+                    :color='color',
+                    :text-color='textColor',
                     @click='() => onFabActionClicked(fab, letter)',
                     :label='letter',
                 )
                 sub.iw-code-block-label {{fab.label}}
 
+        .iw-sticky-bottom
+            q-btn.fixed-bottom-right(
+                unelevated,
+                dense,
+                :label='label',
+                @click='toggleKeys')
 </template>
 
 <script lang="ts">
@@ -53,6 +64,8 @@ export default defineComponent({
     props: {},
     data: function() {
         return {
+            showKeys: true,
+            label: 'hide keys',
             fabs: {
                 overdot: {
                     isToggled: true,
@@ -80,7 +93,11 @@ export default defineComponent({
     created: function() {},
     mounted: function() {},
     setup: function() {
-        return { keyboard_arrow_left: mdiChevronLeft };
+        return {
+            keyboard_arrow_left: mdiChevronLeft,
+            color: 'deep-orange-6',
+            textColor: 'white',
+        };
     },
     methods: {
         onFabActionClicked: function(fab: any, letter: string) {
@@ -91,6 +108,10 @@ export default defineComponent({
             } else {
                 theFab.show();
             }
+        },
+        toggleKeys: function() {
+            this.showKeys = !this.showKeys;
+            this.label = this.showKeys ? 'Hide Keys' : 'Show Keys';
         },
     },
 });
@@ -129,12 +150,16 @@ export default defineComponent({
     font-weight: 410;
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 1023px) {
     #iw-com-fab .q-fab__actions {
         max-width: 60vw;
         padding-right: 22px;
         overflow-y: hidden;
         overflow-x: scroll;
+    }
+
+    #iw-mobile-keys {
+        bottom: 35px;
     }
 }
 </style>

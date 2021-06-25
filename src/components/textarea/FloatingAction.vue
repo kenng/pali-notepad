@@ -1,5 +1,5 @@
 <template lang="pug">
-#iw-com-fab
+#iw-com-fab(v-if='!isReadonly')
 
     template(
         v-if='$q.screen.gt.sm'
@@ -61,7 +61,12 @@ export default defineComponent({
     name: 'FloatingAction',
     mixins: [],
     components: {},
-    props: {},
+    props: {
+        isReadonly: {
+            type: Boolean,
+            default: false,
+        },
+    },
     data: function() {
         return {
             showKeys: true,

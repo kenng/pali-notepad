@@ -41,7 +41,7 @@ q-page#iw-qeditor.iw-page.iw-page-bottom
             }`
         )
 
-    FloatingAction(@click='onFabClick')
+    FloatingAction(@click='onFabClick', :isReadonly='isReadonly')
 
 </template>
 

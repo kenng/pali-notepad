@@ -12,7 +12,7 @@
                 /> -->
 
                 <q-toolbar-title>
-                    Pali Notepad
+                    Pāli Notepad
                 </q-toolbar-title>
 
                 <div>

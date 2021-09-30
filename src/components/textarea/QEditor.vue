@@ -67,6 +67,7 @@ export default defineComponent({
     data() {
         return {
             content: '',
+            contentOld: '',
             toolbar: null as any,
             isEnabledPaliParsing: true,
             storageKey: 'paliContent',
@@ -96,11 +97,14 @@ export default defineComponent({
         // pasteCapture: function(ev: Event) {
         //     IwQEditor.pasteCapture(this.editor, ev);
         // },
-        onChanged: function(value: string) {
-            debounce(() => this.saveToStorage(value), 5000)();
+        onChanged: function() {
+            debounce(() => this.saveToStorage(), 2000)();
         },
-        saveToStorage: function(value: string) {
-            LocalStorage.set(this.storageKey, value);
+        saveToStorage: function() {
+            if (this.content != this.contentOld) {
+                LocalStorage.set(this.storageKey, this.content);
+                this.contentOld = this.content;
+            }
         },
         onKeyDown: function(event: KeyboardEvent) {
             const res = onKeyDown(event);

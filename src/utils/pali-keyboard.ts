@@ -7,7 +7,7 @@
 
 // diacritics
 // "Alt Ctrl N" for "n tilde"
-export const tilde: obj = {
+export const tilde: { [key: string]: string } = {
     a: 'ā',
     A: 'Ā',
     i: 'ī',
@@ -16,13 +16,22 @@ export const tilde: obj = {
     N: 'Ñ',
     u: 'ū',
     U: 'Ū',
+    // ubuntu map it 'ctrl+alt+shift+u' to search unicode
+    Y: 'Ū',
 };
 
-// "Alt N" for "n overdot",
-export const overdot: obj = { m: 'ṁ', n: 'ṅ', N: 'Ṅ' };
+// "Ctrl M" for "m overdot",
+export const overdot: { [key: string]: string } = {
+    m: 'ṁ',
+    n: 'ṅ',
+    N: 'Ṅ',
+    // browser mostly map ctrl+n to open new tab
+    ',': 'ṅ',
+    '<': 'Ṅ',
+};
 
-// "Ctrl N" for "n underdot", etc.
-export const underdot: obj = {
+// "Alt N" for "n underdot", etc.
+export const underdot: { [key: string]: string } = {
     d: 'ḍ',
     D: 'Ḍ',
     l: 'ḷ',
@@ -41,21 +50,26 @@ export function onKeyDown(event: KeyboardEvent) {
         if (event.ctrlKey && event.key != 'Control') {
             if (tilde[event.key]) {
                 event.preventDefault();
-                console.log(`tilde[event.key]: ${tilde[event.key]}`);
+                console.log(`tilde: ${tilde[event.key]}`);
                 return tilde[event.key];
             }
         }
-        console.log(`overdot[event.key]: ${overdot[event.key]}`);
+        if (underdot[event.key]) {
+            console.log(`underdot: ${underdot[event.key]}`);
+            event.preventDefault();
+            return underdot[event.key];
+        }
+        return;
+    } else if (
+        (event.ctrlKey && event.key != 'Control') ||
+        (event.metaKey && event.key != 'Meta')
+    ) {
         if (overdot[event.key]) {
+            console.log(`overdot: ${overdot[event.key]}`);
             event.preventDefault();
             return overdot[event.key];
         }
         return;
-    } else if (event.ctrlKey && event.key != 'Control') {
-        console.log(`underdot[event.key]: ${underdot[event.key]}`);
-        if (underdot[event.key]) {
-            event.preventDefault();
-            return underdot[event.key];
-        }
     }
+    return;
 }

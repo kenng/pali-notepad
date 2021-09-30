@@ -1,8 +1,8 @@
 {
     "name": "pali-notepad",
     "version": "1.0.0",
-    "description": "Pali Input Made Easy",
-    "productName": "Pali Notepad",
+    "description": "Pāli Input Made Easy",
+    "productName": "Pāli Notepad",
     "author": "Ken Ng <kenngsimply@gmail.com>",
     "private": false,
     "scripts": {
